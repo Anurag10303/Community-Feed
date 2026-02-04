@@ -4,8 +4,10 @@ A full-stack community feed application built with Django REST Framework and Rea
 Users can create posts, like posts and comments, earn karma, and view a real-time leaderboard.
 
 ## 🚀 Live Demo:
-### Frontend: https://connect4-hazel-ten.vercel.app/
-### Backend: https://connect4-production-d2c5.up.railway.app
+
+### Frontend: https://community-feed-zeta.vercel.app/
+
+### Backend: https://community-feed-production-5182.up.railway.app/
 
 ## 🧠 Features
 
@@ -22,6 +24,7 @@ Users can create posts, like posts and comments, earn karma, and view a real-tim
 6. Fully deployed backend + frontend
 
 ## 🛠 Tech Stack
+
 ### Backend
 
 • Django
@@ -47,6 +50,7 @@ Users can create posts, like posts and comments, earn karma, and view a real-tim
 3. Database: Railway PostgreSQL
 
 📂 Project Structure
+
 ```
 Community-Feed/
 │
@@ -63,18 +67,24 @@ Community-Feed/
 ```
 
 ## ⚙️ Running Locally
+
 ### 1️⃣ Clone the repository
+
 ```
 git clone https://github.com/Anurag10303/Community-Feed
 cd Community-Feed
 ```
+
 ### 2️⃣ Backend Setup (Django)
+
 ```
 Create virtual environment
 cd backend
 python -m venv venv
 ```
+
 #### Activate it:
+
 ```
 Windows
 
@@ -84,56 +94,76 @@ Mac/Linux
 
 source venv/bin/activate
 ```
+
 #### Install dependencies
+
 ```
 pip install -r requirements.txt
 ```
+
 ### Environment Variables
 
 #### Create a .env file inside backend/:
+
 ```
 DEBUG=True
 SECRET_KEY=your-secret-key
 DATABASE_URL=postgresql://user:password@localhost:5432/community_feed
 ```
+
 #### You can also use SQLite locally by removing DATABASE_URL.
 
 ##### Run migrations
+
 ```
 python manage.py migrate
 ```
+
 ##### Create superuser (optional)
+
 ```
 python manage.py createsuperuser
 ```
 
 ##### Start backend server
+
 ```
 python manage.py runserver
 ```
+
 ### Backend runs at:
+
 ```
 http://127.0.0.1:8000/
 ```
+
 ### 3️⃣ Frontend Setup (React)
+
 ```
 cd ../frontend
 npm install
 ```
+
 #### Frontend Environment Variables
+
 ##### Create .env in frontend/:
+
 ```
 VITE_API_BASE_URL=http://127.0.0.1:8000/api
 ```
 
 ### Start frontend
+
 ```
 npm run dev
 ```
+
 ### Frontend runs at:
+
 ```
 http://localhost:5173/
 ```
+
 ## 🔁 How Local Flow Works
 
 • React → calls Django REST API
@@ -145,6 +175,7 @@ http://localhost:5173/
 • Leaderboard updates dynamically
 
 ## 🚀 Deployment Notes
+
 ### Backend (Railway)
 
 1. Uses gunicorn backend.wsgi
@@ -164,12 +195,14 @@ http://localhost:5173/
 3. Automatically redeployed on push
 
 ## 🧪 API Endpoints (Sample)
+
 ```
 GET /api/feed/
 POST /api/feed/<post_id>/like/
 POST /api/feed/<post_id>/comment/
 GET /api/feed/leaderboard/
 ```
+
 ## ⚠️ Important Notes
 
 1. Authentication is not implemented (user_id is simulated)
