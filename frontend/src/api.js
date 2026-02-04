@@ -6,14 +6,35 @@ if (!BASE_URL) {
 /* ===================== FEED ===================== */
 
 export async function fetchFeed(userId = 1) {
-  const res = await fetch(`${BASE_URL}/feed/?user_id=${userId}`);
+  const res = await fetch(`${BASE_URL}/api/feed/?user_id=${userId}`);
   if (!res.ok) throw new Error("Failed to fetch feed");
   return res.json();
 }
 
 export async function fetchPost(postId, userId = 1) {
-  const res = await fetch(`${BASE_URL}/feed/${postId}/?user_id=${userId}`);
+  const res = await fetch(`${BASE_URL}/api/feed/${postId}/?user_id=${userId}`);
   if (!res.ok) throw new Error("Failed to fetch post");
+  return res.json();
+}
+
+/* ===================== COMMENTS ===================== */
+
+export async function addComment(postId, content, parentId = null, userId = 1) {
+  const res = await fetch(`${BASE_URL}/api/feed/${postId}/comment/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      content,
+      parent_id: parentId,
+      user_id: userId,
+    }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.detail || "Comment failed");
+  }
+
   return res.json();
 }
 
@@ -35,7 +56,7 @@ export async function likeComment(commentId, userId) {
 /* ===================== LIKES ===================== */
 
 export async function likePost(postId, userId = 1) {
-  const res = await fetch(`${BASE_URL}/feed/${postId}/like/`, {
+  const res = await fetch(`${BASE_URL}/api/feed/${postId}/like/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ user_id: userId }),
@@ -49,31 +70,10 @@ export async function likePost(postId, userId = 1) {
   return res.json();
 }
 
-/* ===================== COMMENTS ===================== */
-
-export async function addComment(postId, content, parentId = null, userId = 1) {
-  const res = await fetch(`${BASE_URL}/feed/${postId}/comment/`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      content,
-      parent_id: parentId,
-      user_id: userId,
-    }),
-  });
-
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.detail || "Comment failed");
-  }
-
-  return res.json();
-}
-
 /* ===================== LEADERBOARD ===================== */
 
 export async function fetchLeaderboard() {
-  const res = await fetch(`${BASE_URL}/feed/leaderboard/`);
+  const res = await fetch(`${BASE_URL}/api/feed/leaderboard/`);
   if (!res.ok) throw new Error("Failed to fetch leaderboard");
   return res.json();
 }
