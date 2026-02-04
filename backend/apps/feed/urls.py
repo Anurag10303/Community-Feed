@@ -2,15 +2,18 @@ from django.urls import path
 from .views import (
     FeedListAPIView,
     PostDetailAPIView,
+    AddCommentAPIView,
     LikePostAPIView,
-    LikeCommentAPIView,
     LeaderboardAPIView,
+    LikeCommentAPIView
 )
 
 urlpatterns = [
-    path("", FeedListAPIView.as_view(), name="feed-list"),
-    path("leaderboard/", LeaderboardAPIView.as_view(), name="leaderboard"),
-    path("<int:post_id>/", PostDetailAPIView.as_view(), name="post-detail"),
-    path("<int:post_id>/like/", LikePostAPIView.as_view(), name="post-like"),
-    path("comments/<int:comment_id>/like/", LikeCommentAPIView.as_view(), name="comment-like"),
+    path("feed/", FeedListAPIView.as_view()),
+    path("feed/<int:post_id>/", PostDetailAPIView.as_view()),
+    path("feed/<int:post_id>/comment/", AddCommentAPIView.as_view()),
+    path("feed/<int:post_id>/like/", LikePostAPIView.as_view()),
+    path("feed/leaderboard/", LeaderboardAPIView.as_view()),
+    path("comments/<int:comment_id>/like/", LikeCommentAPIView.as_view()),
 ]
+

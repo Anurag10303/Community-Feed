@@ -36,19 +36,39 @@ def get_comment_tree(*, post_id: int):
 
     return roots
 
-def get_leaderboard_last_24h(limit: int = 5):
-    """
-    Returns top users by karma earned in the last 24 hours.
-    """
+from datetime import timedelta
+from django.utils import timezone
+from django.db.models import Sum
 
-    since = now() - timedelta(hours=24)
+from django.contrib.auth.models import User
+from .models import KarmaEvent
 
-    leaderboard = (
+
+def get_leaderboard_last_24h(limit=5):
+    since = timezone.now() - timedelta(hours=24)
+
+    qs = (
         KarmaEvent.objects
         .filter(created_at__gte=since)
-        .values("user_id", "user__username")
-        .annotate(total_karma=Sum("points"))
-        .order_by("-total_karma")[:limit]
+        .values("user")
+        .annotate(karma=Sum("points"))
+        .order_by("-karma")[:limit]
     )
 
-    return leaderboard
+    # Convert to frontend-friendly shape
+    result = []
+
+    user_map = {
+        u.id: u.username
+        for u in User.objects.filter(id__in=[row["user"] for row in qs])
+    }
+
+    for row in qs:
+        result.append({
+            "user_id": row["user"],
+            "username": user_map.get(row["user"], "unknown"),
+            "karma": row["karma"],
+        })
+
+    return result
+
