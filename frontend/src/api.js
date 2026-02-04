@@ -18,14 +18,11 @@ export async function fetchPost(postId, userId = 1) {
 }
 
 export async function likeComment(commentId, userId) {
-  const res = await fetch(
-    `http://127.0.0.1:8000/api/comments/${commentId}/like/`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_id: userId }),
-    },
-  );
+  const res = await fetch(`${BASE_URL}/api/comments/${commentId}/like/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: userId }),
+  });
 
   if (!res.ok) {
     const err = await res.json();
