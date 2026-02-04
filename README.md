@@ -24,35 +24,30 @@ Users can create posts, like posts and comments, earn karma, and view a real-tim
 ## 🛠 Tech Stack
 ### Backend
 
-Django
+• Django
 
-Django REST Framework
+• Django REST Framework
 
-PostgreSQL
+• PostgreSQL
 
-Gunicorn
+• unicorn
 
-Frontend
+### Frontend
 
-React (Vite)
+• React (Vite)
 
-Tailwind CSS
+• Tailwind CSS
 
-Deployment
+## Deployment
 
-Backend: Railway
+1. Backend: Railway
 
-Frontend: Vercel
+2. Frontend: Vercel
 
-Database: Railway PostgreSQL
-
-🌍 Live URLs
-
-Frontend: https://<your-vercel-url>
-
-Backend API: https://community-feed-production-5182.up.railway.app
+3. Database: Railway PostgreSQL
 
 📂 Project Structure
+```
 Community-Feed/
 │
 ├── backend/
@@ -65,19 +60,22 @@ Community-Feed/
 ├── src/
 ├── package.json
 └── vite.config.js
+```
 
-⚙️ Running Locally
-1️⃣ Clone the repository
-git clone https://github.com/<your-username>/community-feed.git
+## ⚙️ Running Locally
+### 1️⃣ Clone the repository
+```
+git clone https://github.com/Anurag10303/Community-Feed
 cd Community-Feed
-
-2️⃣ Backend Setup (Django)
+```
+### 2️⃣ Backend Setup (Django)
+```
 Create virtual environment
 cd backend
 python -m venv venv
-
-Activate it:
-
+```
+#### Activate it:
+```
 Windows
 
 venv\Scripts\activate
@@ -85,105 +83,115 @@ venv\Scripts\activate
 Mac/Linux
 
 source venv/bin/activate
-
-Install dependencies
+```
+#### Install dependencies
+```
 pip install -r requirements.txt
+```
+### Environment Variables
 
-Environment Variables
-
-Create a .env file inside backend/:
-
+#### Create a .env file inside backend/:
+```
 DEBUG=True
 SECRET_KEY=your-secret-key
 DATABASE_URL=postgresql://user:password@localhost:5432/community_feed
+```
+#### You can also use SQLite locally by removing DATABASE_URL.
 
-You can also use SQLite locally by removing DATABASE_URL.
-
-Run migrations
+##### Run migrations
+```
 python manage.py migrate
-
-Create superuser (optional)
+```
+##### Create superuser (optional)
+```
 python manage.py createsuperuser
+```
 
-Start backend server
+##### Start backend server
+```
 python manage.py runserver
-
-Backend runs at:
-
+```
+### Backend runs at:
+```
 http://127.0.0.1:8000/
-
-3️⃣ Frontend Setup (React)
+```
+### 3️⃣ Frontend Setup (React)
+```
 cd ../frontend
 npm install
-
-Frontend Environment Variables
-
-Create .env in frontend/:
-
+```
+#### Frontend Environment Variables
+##### Create .env in frontend/:
+```
 VITE_API_BASE_URL=http://127.0.0.1:8000/api
+```
 
-Start frontend
+### Start frontend
+```
 npm run dev
-
-Frontend runs at:
-
+```
+### Frontend runs at:
+```
 http://localhost:5173/
+```
+## 🔁 How Local Flow Works
 
-🔁 How Local Flow Works
+• React → calls Django REST API
 
-React → calls Django REST API
+• Django → reads/writes to PostgreSQL
 
-Django → reads/writes to PostgreSQL
+• Likes & comments → increase user karma
 
-Likes & comments → increase user karma
+• Leaderboard updates dynamically
 
-Leaderboard updates dynamically
+## 🚀 Deployment Notes
+### Backend (Railway)
 
-🚀 Deployment Notes
-Backend (Railway)
+1. Uses gunicorn backend.wsgi
 
-Uses gunicorn backend.wsgi
+2. Port is auto-detected by Railway
 
-Port is auto-detected by Railway
+3. PostgreSQL provisioned via Railway plugin
 
-PostgreSQL provisioned via Railway plugin
+4. Migrations run manually against Railway DB
 
-Migrations run manually against Railway DB
+### Frontend (Vercel)
 
-Frontend (Vercel)
+1. Built with Vite
 
-Built with Vite
+2. Uses VITE_API_BASE_URL env variable
 
-Uses VITE_API_BASE_URL env variable
+3. Automatically redeployed on push
 
-Automatically redeployed on push
-
-🧪 API Endpoints (Sample)
+## 🧪 API Endpoints (Sample)
+```
 GET /api/feed/
 POST /api/feed/<post_id>/like/
 POST /api/feed/<post_id>/comment/
 GET /api/feed/leaderboard/
+```
+## ⚠️ Important Notes
 
-⚠️ Important Notes
+1. Authentication is not implemented (user_id is simulated)
 
-Authentication is not implemented (user_id is simulated)
+2. Designed for learning & demonstration
 
-Designed for learning & demonstration
+3. Production auth can be added later
 
-Production auth can be added later
+## 📌 Future Improvements
 
-📌 Future Improvements
+1. JWT authentication
 
-JWT authentication
+2. User profiles
 
-User profiles
+3. Edit/delete posts & comments
 
-Edit/delete posts & comments
+4. WebSocket real-time updates
 
-WebSocket real-time updates
-
-👤 Author
+## 👤 Author
 
 Anurag
+
 Computer Science Student @ GGSIPU
+
 Aspiring Full-Stack Developer
