@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Feed from "./components/Feed";
 import Leaderboard from "./components/Leaderboard";
-import Navbar from "./components/Navbar";
 
 export default function App() {
   const [leaderboardKey, setLeaderboardKey] = useState(0);
